@@ -1,12 +1,14 @@
 Here are the steps to install dependencies from a "pyproject.toml" file using pip, pipenv:
 
-    1.Install pipenv if it is not already installed on your computer using the command "pip install pipenv"
+    1.Install pipenv if it is not already installed on your computer using the command 
+        pip install pipenv
 
     2.Navigate to the project directory where the "pyproject.toml" file is located.
 
     3.Run the command "pipenv install" to install dependencies from the pyproject.toml file.
 
-    4.Activate the virtual environment using the command "pipenv shell"
+    4.Activate the virtual environment using the command 
+        pipenv shell
 
 
 
