@@ -78,7 +78,22 @@ files = [
     {file = "pygame-2.3.0.tar.gz", hash = "sha256:884b92c9cbf0bfaf8b8dd0f75a746613c55447d307ddd1addf903709b3b9f89f"},
 ]
 
+[[package]]
+name = "pygame-textinput"
+version = "1.0.1"
+description = "Enter text using pygame"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pygame-textinput-1.0.1.tar.gz", hash = "sha256:31efab5b171c179553ebc226ba3e639802be3b6d7b224f01fe3b6064effe5a5d"},
+    {file = "pygame_textinput-1.0.1-py3-none-any.whl", hash = "sha256:0aea142473c5651f87cb08a1af41a77137a89688aa4dae2677603da7565cff36"},
+]
+
+[package.dependencies]
+pygame = "*"
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "416fd474cbedc11911bc0c92bb0b81126f2ee0663a4489b73e89857f0d4fb238"
+content-hash = "6546c80c61a327dfdbc353fd273821313ccf011463eff060dd2ac7ea860972eb"
