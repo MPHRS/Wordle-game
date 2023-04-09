@@ -67,14 +67,14 @@ def end(var):
     popup = tk.Toplevel()
     popup.geometry("200x100")
     if var == 1:
-        label = tk.Label(popup, text="Вы угадали! Начать заново?")
+        label = tk.Label(popup, text="You guessed right. Restart?")
         label.pack()
     else: 
-        label = tk.Label(popup, text=f"Слово было: {word}. Начать заново?")
+        label = tk.Label(popup, text=f"The word was: {word}. Restart?")
         label.pack()
-    button = ttk.Button(popup, text="Да", command=lambda: [init_render(square_container),choose_word(five_letter_words), popup.destroy()])
+    button = ttk.Button(popup, text="Yes", command=lambda: [init_render(square_container),choose_word(five_letter_words), popup.destroy()])
     button.pack()
-    quit_button = ttk.Button(popup, text="Выйти", command=quit_game)
+    quit_button = ttk.Button(popup, text="Exit", command=quit_game)
     quit_button.pack()
 def quit_game():
     root.destroy()
