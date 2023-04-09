@@ -96,4 +96,4 @@ pygame = "*"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "6546c80c61a327dfdbc353fd273821313ccf011463eff060dd2ac7ea860972eb"
+content-hash = "b91964e07dfbd2185cd3bc9f1457be0b4655f6c14393222830b55e70f627c57b"

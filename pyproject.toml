@@ -8,7 +8,6 @@ packages = [{include = "wordle_game"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-pygame = "^2.3.0"
 pygame-textinput = "^1.0.1"
 
 
