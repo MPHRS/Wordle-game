@@ -2,7 +2,7 @@ import pygame
 import sys
 import urllib.request
 import os
-
+import tkinter as tk
 
 class Game:
     def __init__(self):
@@ -10,6 +10,8 @@ class Game:
         pygame.init()
         self.flag = [1,1] # [0] - switch pages
         self.ui = UI()
+        self.ui.start_page()
+        self.ui.game_page()
         # получение размеров экрана
         self.clock = pygame.time.Clock()
         # Скачивание базы данных со словами на 5 букв и сохранение в файле
@@ -59,6 +61,9 @@ class Game:
                     elif self.flag[0] == -1:
                         if self.ui.button__back_to_menu.rect.collidepoint(event.pos):
                             self.flag[0] = -self.flag[0]
+                elif self.ui.input_box.rect.collidepoint(pygame.mouse.get_pos()) and self.flag[0] == -1:
+                    self.ui.input_box.handle_event(event)
+                    
                 
             # Отрисовка экрана
             self.ui.screen.fill((120, 255, 175))
@@ -85,53 +90,30 @@ class Button:
             text_rect = text.get_rect(center=self.rect.center)
             screen.blit(text, text_rect)
 
-class InputBox:
-    def __init__(self, x, y, w, h, font=None, font_size=30):
-        pygame.init()
-        self.rect = pygame.Rect(x, y, w, h)
-        self.color = pygame.Color('lightskyblue3')
-        self.text = ''
-        self.font = font or pygame.font.Font(None, font_size)
-        self.active = False
 
-    def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            # If the user clicked on the input_box rect.
-            if self.rect.collidepoint(event.pos):
-                # Toggle the active variable.
-                self.active = not self.active
-            else:
-                self.active = False
-            # Change the current color of the input box.
-            self.color = pygame.Color('dodgerblue2') if self.active else pygame.Color('lightskyblue3')
-        if event.type == pygame.KEYDOWN:
-            if self.active:
-                if event.key == pygame.K_RETURN:
-                    # return text and deactivate
-                    entered_text = self.text
-                    self.text = ''
-                    self.active = False
-                    return entered_text
-                elif event.key == pygame.K_BACKSPACE:
-                    self.text = self.text[:-1]
-                else:
-                    self.text += event.unicode
+class InputBox(tk.Frame):
+    def __init__(self, master=None, label=None, entry_width=None, entry_var=None):
+        super().__init__(master)
+        self.label = label
+        self.entry_width = entry_width
+        self.entry_var = entry_var
 
-    def update(self):
-        # Resize the box if the text is too long.
-        width = max(200, self.font.size(self.text)[0]+10)
-        self.rect.w = width
+        self.create_widgets()
 
-    def draw(self, screen):
-        # Blit the text.
-        txt_surface = self.font.render(self.text, True, self.color)
-        # Resize the box if the text is too long.
-        width = max(200, self.font.size(self.text)[0]+10)
-        self.rect.w = width
-        # Blit the rect.
-        pygame.draw.rect(screen, self.color, self.rect, 2)
-        # Blit the text.
-        screen.blit(txt_surface, (self.rect.x+5, self.rect.y+5))
+    def create_widgets(self):
+        if self.label:
+            self.label_widget = tk.Label(self, text=self.label)
+            self.label_widget.pack(side='left')
+
+        if self.entry_var:
+            self.entry_widget = tk.Entry(self, width=self.entry_width, textvariable=self.entry_var)
+        else:
+            self.entry_widget = tk.Entry(self, width=self.entry_width)
+
+        self.entry_widget.pack(side='left')
+
+    def get_text(self):
+        return self.entry_widget.get()
 
 
 class UI:
@@ -156,7 +138,11 @@ class UI:
         self.button__back_to_menu = Button(400, 300, 50, 30, (255, 0, 0), (0, 255, 0), 'Back to menu')
         self.button__restart = Button(100, 100, 50, 30, (255, 0, 0), (0, 255, 0), 'Restart')
         self.input_box = InputBox(100, 100, 140, 32)
-        
+        root = tk.Tk()
+        input_var = tk.StringVar()
+        self.input_box = InputBox(root, label="Enter text:", entry_width=20, entry_var=input_var)
+        self.input_box.pack()
+
 class Word:
     def __init__(self, word):
         # инициализация слова
@@ -174,3 +160,10 @@ class Word:
 if __name__ == "__main__":
     game = Game()
     game.run()
+    
+    
+
+    button = tk.Button(root, text="Get text", command=lambda: print(input_box.get_text()))
+    button.pack()
+
+    root.mainloop()
